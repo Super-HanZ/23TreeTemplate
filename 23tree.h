@@ -173,21 +173,21 @@ typename twoThree<Type>::Split* twoThree<Type>::Node::add(Type * to_add)
 		sort();
 		return NULL;//return NULL
 	}
-	
+		
 	//If right is empty
-	if(!right) {
+	else if(!right) {
 	
 		right = to_add;
 		sort();
 		return NULL;//retun NULL
 	}
-	
-	//Otherwise we need to split this node
-	//Which is where the Split object comes in	
-		
-	
-	return NULL;
+	//otherwise it must be split
+	else {
+		Split * toReturn;
 
+		return toReturn = new Split(this, to_add);
+	
+	}
 }
 
 //=================================================Split Structure===========================================================
