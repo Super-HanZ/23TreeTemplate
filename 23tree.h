@@ -19,17 +19,28 @@ class twoThree {
 		
 		public:	
 			Node();//Default constructor sets all data members to null
+			Node(Type *);//Constructor that takes pointer to Type			
 			
 			//functions return left, right, and middle pointers	
 			Node*& moveLeft();
 			Node*& moveMiddle();
 			Node*& moveRight();
 			
+			//Return the values		
+			Type * leftValue();
+			Type * rightValue();
+	
 			//sorts the data
 			void sort();
 			
 			//checks if the node is empty
 			bool empty();
+
+			//Add Function
+			//returns a split object
+			Split* add(Type *);
+
+
 			//insert nessasary functions here
 		private:
 			//data pointers left and right data
@@ -48,10 +59,9 @@ class twoThree {
 	//two newly created nodes storing the left and right as well
 	//as the middle value(but not as a node or part of a sub tree)
 	// this class may help, may be removed later
-	class Split 
+	struct Split 
 	{
-		
-		private:	
+			Split(Node *, Type *);	
 
 			//left and right nodes and or sub trees
 			Node * leftNode;
@@ -84,6 +94,10 @@ class twoThree {
 template <class Type>
 twoThree<Type>::Node::Node() : leftData(NULL), rightData(NULL), left(NULL), middle(NULL), right(NULL) {}
 
+//Constructor that takes pointer to a TYPE
+template <class Type>
+twoThree<Type>::Node::Node(Type * to_add) : leftData(to_add), rightData(NULL), left(NULL), middle(NULL), right(NULL) {}
+
 //Three Move functions return left, middle, and right pointers
 template <class Type>
 typename twoThree<Type>::Node*& twoThree<Type>::Node::moveRight() { return right; }
@@ -93,6 +107,13 @@ typename twoThree<Type>::Node*& twoThree<Type>::Node::moveMiddle() { return midd
 
 template <class Type>
 typename twoThree<Type>::Node*& twoThree<Type>::Node::moveLeft() { return left; }
+
+//return the data values
+template <class Type>
+Type * twoThree<Type>::Node::leftValue() { return leftData; }
+
+template <class Type>
+Type * twoThree<Type>::Node::rightValue() { return rightData; }
 
 //Sort function is basic (possibly too runtime heavy will examine use later)
 //Checks to see if one-two data items are in-order
@@ -126,6 +147,8 @@ void twoThree<Type>::Node::sort()
 
 }
 
+//Checks if node has no data items
+//should not happen outside of a few functions
 template <class Type>
 bool twoThree<Type>::Node::empty() 
 {
@@ -135,6 +158,69 @@ bool twoThree<Type>::Node::empty()
 	else
 		return false;//otherwise return false
 }
+
+//Insert data member into a node
+//Will return NULL value if successfuly added
+//otherwise it will return a "Split" pointer
+template <class Type>
+typename twoThree<Type>::Split* twoThree<Type>::Node::add(Type * to_add)
+{
+	//if left is empty add to left
+	//Should'nt happen but just to make sure
+	if(!left) {
+
+		left = to_add;
+		sort();
+		return NULL;//return NULL
+	}
+	
+	//If right is empty
+	if(!right) {
+	
+		right = to_add;
+		sort();
+		return NULL;//retun NULL
+	}
+	
+	//Otherwise we need to split this node
+	//Which is where the Split object comes in	
+		
+	
+	return NULL;
+
+}
+
+//=================================================Split Structure===========================================================
+
+//Split Constructor
+//Determines middle value
+template <class Type>
+twoThree<Type>::Split::Split(Node * aNode, Type * toInsert) : data(toInsert)
+{
+	//If the left vale is greater than toInsert
+	//Then left is middle
+	if( *aNode.leftValue() > *toInsert) {
+		
+		leftNode = new Node(toInsert);	
+		rightNode = new Node(*aNode.rightValue());
+		
+		//PICK UP HERE__------------d--ds-fds-f-ds-fds--fds--fds-f-
+
+
+
+		///dfjdsajf%&^^(*W($ $#@(*$#     $@!@$*(! )))!   @@# $$$$
+
+	}
+
+}
+
+
+
+
+
+
+
+
 
 
 //============================================= TWO THREE TREE CLASS MEMBER FUNCTION ========================================
