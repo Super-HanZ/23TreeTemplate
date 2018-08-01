@@ -223,7 +223,8 @@ twoThree<Type>::Split::Split(Node * aNode, Type * toInsert) : data(toInsert)
 	rightNode = new Node(aNode.rightValue());	
 	
 	data = toInsert;
-
+	
+	return;
 }
 
 
