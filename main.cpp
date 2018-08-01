@@ -7,8 +7,8 @@ using namespace std;
 
 int main() {
 
-
-
+	twoThree<int> object;
+	
 
 
 
