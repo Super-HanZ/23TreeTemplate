@@ -202,15 +202,27 @@ twoThree<Type>::Split::Split(Node * aNode, Type * toInsert) : data(toInsert)
 	if( *aNode.leftValue() > *toInsert) {
 		
 		leftNode = new Node(toInsert);	
-		rightNode = new Node(*aNode.rightValue());
+		rightNode = new Node(aNode.rightValue());
 		
-		//PICK UP HERE__------------d--ds-fds-f-ds-fds--fds--fds-f-
-
-
-
-		///dfjdsajf%&^^(*W($ $#@(*$#     $@!@$*(! )))!   @@# $$$$
-
+		data = *aNode.leftValue();//set middle to left
+		
+		return;
 	}
+	//than to toInsert is the right value and 
+	if(*aNode.rightValue() < *toInsert) {
+		
+		rightNode = new Node(toInsert);
+		leftNode = new Node(aNode.leftValue());	
+
+		data = aNode;	
+		return;
+	}	
+	
+	//otherwise toInsert is the middle value
+	leftNode = new Node(aNode.leftValue());
+	rightNode = new Node(aNode.rightValue());	
+	
+	data = toInsert;
 
 }
 
