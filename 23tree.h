@@ -5,6 +5,10 @@ class twoThree {
 	
 	class Split;//forward declare split class for use by node class
 
+	//Enumeration type
+	//Little too on the nose, probably change later
+	//too many things with left and right in their name
+	enum WHERE_FROM{ FROM_LEFT, FROM_MIDDLE, FROM_RIGHT };
 	
 	//Node structure carries two data pointers
 	//Three pointers left right and middle
@@ -40,6 +44,9 @@ class twoThree {
 			//returns a split object
 			Split* add(Type *);
 
+			//Is leaf function determines if it is 
+			//A leaf
+			bool leaf();
 
 			//insert nessasary functions here
 		private:
@@ -115,6 +122,16 @@ Type * twoThree<Type>::Node::leftValue() { return leftData; }
 template <class Type>
 Type * twoThree<Type>::Node::rightValue() { return rightData; }
 
+//function to determine if node is leaf
+bool twoThree<Type>::Node::leaf() 
+{
+	//if all three pointers are NULL
+	if(!left)
+		return true;
+	else
+		return false;
+}
+
 //Sort function is basic (possibly too runtime heavy will examine use later)
 //Checks to see if one-two data items are in-order
 template <class Type>
@@ -181,13 +198,13 @@ typename twoThree<Type>::Split* twoThree<Type>::Node::add(Type * to_add)
 		sort();
 		return NULL;//retun NULL
 	}
-	//otherwise it must be split
-	else {
+	//otherwise it must be split//But what if this Isnt a leaf
+	else if {
 		Split * toReturn;
 
 		return toReturn = new Split(this, to_add);
-	
 	}
+
 }
 
 //=================================================Split Structure===========================================================
@@ -223,15 +240,9 @@ twoThree<Type>::Split::Split(Node * aNode, Type * toInsert) : data(toInsert)
 	rightNode = new Node(aNode.rightValue());	
 	
 	data = toInsert;
-	
+
 	return;
 }
-
-
-
-
-
-
 
 
 
