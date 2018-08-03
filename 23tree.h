@@ -8,7 +8,7 @@ class twoThree {
 	//Enumeration type
 	//Little too on the nose, probably change later
 	//too many things with left and right in their name
-	enum WHERE_FROM{ FROM_LEFT, FROM_MIDDLE, FROM_RIGHT };
+	enum WHERE_FROM { FROM_LEFT, FROM_MIDDLE, FROM_RIGHT };
 	
 	//Node structure carries two data pointers
 	//Three pointers left right and middle
@@ -69,7 +69,11 @@ class twoThree {
 	struct Split 
 	{
 			Split(Node *, Type *);	
-
+			
+			//For creating a New Split Node when one already exists
+			//used on return(In two tree class)			
+			Split(Split*,Node*,WHERE_FROM);
+	
 			//left and right nodes and or sub trees
 			Node * leftNode;
 
@@ -78,13 +82,10 @@ class twoThree {
 			Type * data;//The pushed value
 					
 	};
-
 	
 	public:
 		twoThree();
 	
-
-
 
 	private:
 		Node * head;//head pointer
@@ -123,6 +124,7 @@ template <class Type>
 Type * twoThree<Type>::Node::rightValue() { return rightData; }
 
 //function to determine if node is leaf
+template <class Type>
 bool twoThree<Type>::Node::leaf() 
 {
 	//if all three pointers are NULL
@@ -199,11 +201,16 @@ typename twoThree<Type>::Split* twoThree<Type>::Node::add(Type * to_add)
 		return NULL;//retun NULL
 	}
 	//otherwise it must be split//But what if this Isnt a leaf
-	else if {
+	else if(leaf())
+	 {
 		Split * toReturn;
 
 		return toReturn = new Split(this, to_add);
 	}
+	
+	//Some code for determining what to do if leaf
+
+	//-----& $ @ 
 
 }
 
@@ -240,8 +247,97 @@ twoThree<Type>::Split::Split(Node * aNode, Type * toInsert) : data(toInsert)
 	rightNode = new Node(aNode.rightValue());	
 	
 	data = toInsert;
-
 	return;
+}
+
+//This constructor is only for when it has split and 
+//come to another three node
+//Where From determines where it came from
+template <class Type>
+twoThree<Type>::Split::Split(Split * original, Node * CurrentNode, WHERE_FROM whrfrm)
+{
+	//if you came from the left
+	if(whrfrm == FROM_LEFT) {
+		
+		//if you came from the left, node's left value will be middle
+		data = CurrentNode.leftValue();	
+		
+		//Right value gets the value 	
+		rightNode = new Node(CurrentNode.rightValue());			
+		leftNode = new Node(original.data);	
+		
+		//connect the nodes	
+
+
+		return;
+	}	
+	if(whrfrm == FROM_MIDDLE) {
+
+				
+		//if it is greater than the left value		
+		if(original->data < CurrentNode.leftValue()) {
+			
+			
+
+
+		}
+		
+		if(original->data > CurrentNode.rightValue()) {
+
+
+
+
+		}
+		//The "Pushed value must be the middle"	
+		else {
+
+
+
+
+		}			
+	
+
+
+
+
+		return;
+	}
+	if(whrfrm == FROM_RIGHT) {
+
+				
+		//if it is greater than the left value		
+		if(original->data < CurrentNode.leftValue()) {
+			
+			
+
+
+		}
+		
+		if(original->data > CurrentNode.rightValue()) {
+
+
+
+
+		}
+		//The "Pushed value must be the middle"	
+		else {
+
+
+
+
+		}			
+	
+
+
+
+		return;
+	}
+
+
+	
+	
+
+
 }
 
 
